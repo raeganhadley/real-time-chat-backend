@@ -8,6 +8,8 @@ import connectDb from "./db_conn.js";
 import { auth } from "./auth.js";
 import { toNodeHandler } from "better-auth/node";
 
+
+
 // Configure .env file if present into the process of the execution
 configDotenv();
 
@@ -42,6 +44,8 @@ app.use(IDP_ROUTE_ROOT, idpRouter);
 app.get("/", (req: Request, res: Response) => {
   res.json("Hello from Node.js, Express, and TypeScript!");
 });
+
+
 
 // Export server app so that this app can be used in tests
 export default app;

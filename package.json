@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/CodingTeamCommunity/real-time-chat-backend#readme",
   "dependencies": {
+    "@better-auth/infra": "^0.2.14",
     "better-auth": "^1.6.15",
     "cors": "^2.8.6",
     "cross-env": "^10.1.0",
@@ -26,6 +27,7 @@
     "express": "^5.2.1",
     "mongoose": "^9.7.0",
     "pg": "^8.21.0",
+    "resend": "^6.12.4",
     "winston": "^3.19.0"
   },
   "devDependencies": {
