@@ -1,5 +1,4 @@
 import crypto from "crypto";
-import { dbPool } from "./auth.js";
 import { configDotenv } from "dotenv";
 import { Resend } from 'resend';
 

@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { Pool, PoolConfig } from "pg";
 import { testUtils } from "better-auth/plugins";
 import { configDotenv } from "dotenv";
+import { sendEmail } from "./email.js";
 
 configDotenv();
 
@@ -20,13 +21,35 @@ const config: PoolConfig = {
 const testConfig: PoolConfig = {
   connectionString: process.env.PG_TEST_CONN,
 };
-export const dbPool = new Pool(process.env.NODE_ENV == "test" ? testConfig : config);
-
+//authentication
 
 export const auth = betterAuth({
   database: new Pool(process.env.NODE_ENV == "test" ? testConfig : config),
   emailAndPassword: {
     enabled: true,
   },
+  emailVerification: {
+    sendVerificationEmail: async ({ user, url, token}, request) => {
+      //integrate with resend
+      void sendEmail({
+				to: user.email,
+				subject: 'Verify Your Email',
+        text: "click to verify your email",
+				html: `
+          <h1>Verify Your Email</h1>
+          <p>Click the link below to verify:</p>
+          <a href="${url}">Verify Email</a>`,
+      });
+    },
+    sendOnSignUp: true,
+
+  },
   plugins: [...(process.env.NODE_ENV === "test" ? [testUtils()] : [])],
 });
+
+
+
+
+
+
+ 
