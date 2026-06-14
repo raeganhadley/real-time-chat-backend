@@ -7,7 +7,7 @@ import cors from "cors";
 import connectDb from "./db_conn.js";
 import { auth } from "./auth.js";
 import { toNodeHandler } from "better-auth/node";
-import { verifyUserEmail, sendVerificationToken } from "./verification.js";
+
 
 
 // Configure .env file if present into the process of the execution
@@ -45,29 +45,7 @@ app.get("/", (req: Request, res: Response) => {
   res.json("Hello from Node.js, Express, and TypeScript!");
 });
 
-app.get("/verify", async (req, res) => {
-  try {
-      const token = req.query.token as string;
-
-      await verifyUserEmail(token);
-
-      res.send("Email verified!");
-  } catch (error) {
-      res.status(400).send("Invalid or expired token");
-  }
-});
 
 
-
-app.get("/email", async (req, res) => {
-  
-  try {
-      await sendVerificationToken(process.env.TEST_EMAIL!);// must fix when we get domain. resends test version only allow for email being sent to your personal email
-
-      res.json({ success: true });
-  } catch (err) {
-      res.status(500).json({ error: err });
-  }
-});
 // Export server app so that this app can be used in tests
 export default app;
