@@ -31,7 +31,8 @@ export const auth = betterAuth({
   emailVerification: {
     sendVerificationEmail: async ({ user, url, token}, request) => {
       //integrate with resend
-      void sendEmail({
+      try{
+        await sendEmail({
 				to: user.email,
 				subject: 'Verify Your Email',
         text: "click to verify your email",
@@ -40,16 +41,11 @@ export const auth = betterAuth({
           <p>Click the link below to verify:</p>
           <a href="${url}">Verify Email</a>`,
       });
+      }catch(error){
+        console.error("Failed to send verification email", error);
+      }
     },
     sendOnSignUp: true,
-
   },
   plugins: [...(process.env.NODE_ENV === "test" ? [testUtils()] : [])],
 });
-
-
-
-
-
-
- 
