@@ -43,6 +43,7 @@ export const auth = betterAuth({
       });
       }catch(error){
         console.error("Failed to send verification email", error);
+        throw error;
       }
     },
     sendOnSignUp: true,
